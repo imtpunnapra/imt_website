@@ -3,7 +3,6 @@ var router = express.Router();
 const multer = require('multer');
 const nodemailer = require('nodemailer');
 const PDFDocument = require('pdfkit');
-const path = require('path');
 
 
 router.get('/', function(req, res, next) {
