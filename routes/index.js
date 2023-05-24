@@ -38,14 +38,10 @@ router.get('/chat-bot', function(req, res, next) {
   res.render('chat-bot');
 });
 
-router.get('/dummy', function(req, res, next) {
-  res.render('dummy');
-});
-
-
 router.get('/admission-form', function(req, res, next) {
   res.render('admission-form');
 });
+
 
 router.post('/send-mail', multer().fields([{ name: 'profileImage', maxCount: 1 }, { name: 'signImage', maxCount: 1 }]), async function(req, res, next) {
 
@@ -200,11 +196,23 @@ doc.fontSize(16)
     // Send email
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.log(error);
-        res.send('Error sending email.');
+        // console.log(error);
+        res.send(`
+          <script>
+            alert('Something Wrong!');
+            window.history.back();
+          </script>`
+        );
+        res.redirect('/admission-form');
       } else {
-        console.log('Email sent: ' + info.response);
-        res.send('Email sent successfully!');
+        // console.log('Email sent: ' + info.response);
+        res.send(`
+          <script>
+            alert('Successfully Submitted');
+            window.history.back();
+          </script>`
+        );
+        res.redirect('/admission-form');
       }
     });
   });
