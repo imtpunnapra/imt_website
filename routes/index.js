@@ -221,4 +221,51 @@ doc.fontSize(16)
   doc.end();
 });
 
+router.post('/contact-mail',function(req, res, next) {
+    const recipientEmail = req.body.recipientEmail;
+    const subject = req.body.subject;
+    const name = req.body.message;
+    const phone = req.body.message;
+    const message = req.body.message;
+    // Set up Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: 'gmail', // e.g., Gmail, Outlook, etc.
+      auth: {
+        user: 'ajithd78564@gmail.com',
+        pass: 'nheredjgynxgiblk'
+      }
+    });
+
+    // Define email options
+    const mailOptions = {
+      from: recipientEmail,
+      to: ['ajithd78564@gmail.com'],
+      subject: subject,
+      html: `<h1>Name : ${name}</h1><br><p>${message}</p><br>Phone:${phone}`,
+    };
+
+    // Send email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        // console.log(error);
+        res.send(`
+          <script>
+            alert('Something Wrong!');
+            window.history.back();
+          </script>`
+        );
+        res.redirect('/admission-form');
+      } else {
+        // console.log('Email sent: ' + info.response);
+        res.send(`
+          <script>
+            alert('Successfully Submitted');
+            window.history.back();
+          </script>`
+        );
+        res.redirect('/admission-form');
+      }
+  });
+});
+
 module.exports = router;
