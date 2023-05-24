@@ -160,7 +160,7 @@ doc.fontSize(16)
    .text('Admission Date             : ' + admission_date)
    .moveDown()
    .text('Consented : I here by declared that all the information submitted by me in the application form is correct, true and valid')
-
+  doc.moveDown();
   doc.image(imageSrc2, { width: 100, height:50 });
 
   // Generate the PDF buffer
