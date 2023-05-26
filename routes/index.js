@@ -46,6 +46,10 @@ router.get('/online-grievance',function(req,res,next){
   res.render('online-grievance');
 });
 
+router.get('/anti-ragging-committe',function(req,res,next){
+  res.render('anti-ragging-committe');
+});
+
 
 router.post('/send-mail', multer().fields([{ name: 'profileImage', maxCount: 1 }, { name: 'signImage', maxCount: 1 }]), async function(req, res, next) {
 
