@@ -42,6 +42,10 @@ router.get('/admission-form', function(req, res, next) {
   res.render('admission-form');
 });
 
+router.get('/online-grievance',function(req,res,next){
+  res.render('online-grievance');
+});
+
 
 router.post('/send-mail', multer().fields([{ name: 'profileImage', maxCount: 1 }, { name: 'signImage', maxCount: 1 }]), async function(req, res, next) {
 
@@ -221,12 +225,13 @@ doc.fontSize(16)
   doc.end();
 });
 
-router.post('/contact-mail',function(req, res, next) {
+router.post('/contact-mail',multer().single('image'),(req, res, next)=> {
     const recipientEmail = req.body.recipientEmail;
     const subject = req.body.subject;
-    const name = req.body.message;
-    const phone = req.body.message;
-    const message = req.body.message;
+    const name = req.body.name;
+    const phone = req.body.phone;
+    const contact_message = req.body.contact_message;
+
     // Set up Nodemailer transporter
     const transporter = nodemailer.createTransport({
       service: 'gmail', // e.g., Gmail, Outlook, etc.
@@ -238,10 +243,10 @@ router.post('/contact-mail',function(req, res, next) {
 
     // Define email options
     const mailOptions = {
-      from: recipientEmail,
+      from: 'ajithd78564@gmail.com',
       to: ['ajithd78564@gmail.com'],
       subject: subject,
-      html: `<h1>Name : ${name}</h1><br><p>${message}</p><br>Phone:${phone}`,
+      html: `<h1>Name : ${name}</h1><br><p>Message: ${contact_message}</p><br>Email : ${recipientEmail}<br>Phone : ${phone}`,
     };
 
     // Send email
@@ -254,7 +259,7 @@ router.post('/contact-mail',function(req, res, next) {
             window.history.back();
           </script>`
         );
-        res.redirect('/admission-form');
+        res.redirect('/contact-us');
       } else {
         // console.log('Email sent: ' + info.response);
         res.send(`
@@ -263,9 +268,58 @@ router.post('/contact-mail',function(req, res, next) {
             window.history.back();
           </script>`
         );
-        res.redirect('/admission-form');
+        res.redirect('/contact-us');
       }
   });
 });
+
+router.post('/grievance-mail', multer().single('image'),(req, res, next) => {
+  const recipientEmail = req.body.recipientEmail;
+  const category = req.body.category;
+  const subject = req.body.subject;
+  const name = req.body.name; // Updated key name
+  const phone = req.body.phone; // Updated key name
+  const grievance = req.body.grievance;
+
+  console.log(recipientEmail, subject, name, phone, grievance, category);
+
+  // Set up Nodemailer transporter
+  const transporter = nodemailer.createTransport({
+    service: 'gmail', // e.g., Gmail, Outlook, etc.
+    auth: {
+      user: 'ajithd78564@gmail.com',
+      pass: 'nheredjgynxgiblk'
+    }
+  });
+
+  const mailOptions = {
+    from: 'ajithd78564@gmail.com',
+    to: 'ajithd78564@gmail.com',
+    subject:'Grievance',
+    html: `<h1>Name : ${name}</h1><br><p>Category : ${category}</p><br><p>Grievance : ${grievance}</p><br>Email:${recipientEmail}<br>Phone:${phone}`,
+  };
+
+  // Send email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.send(`
+        <script>
+          alert('Something went wrong!');
+          window.history.back();
+        </script>`
+      );
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.send(`
+        <script>
+          alert('Successfully submitted!');
+          window.history.back();
+        </script>`
+      );
+    }
+  });
+});
+
 
 module.exports = router;
