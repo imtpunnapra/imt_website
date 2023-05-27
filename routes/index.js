@@ -50,6 +50,9 @@ router.get('/anti-ragging-committe',function(req,res,next){
   res.render('anti-ragging-committe');
 });
 
+router.get('/admission-enquiry',function(req,res,next){
+  res.render('admission-enquiry');
+});
 
 router.post('/send-mail', multer().fields([{ name: 'profileImage', maxCount: 1 }, { name: 'signImage', maxCount: 1 }]), async function(req, res, next) {
 
@@ -287,7 +290,6 @@ router.post('/grievance-mail', multer().single('image'),(req, res, next) => {
   const phone = req.body.phone; // Updated key name
   const grievance = req.body.grievance;
 
-  console.log(recipientEmail, subject, name, phone, grievance, category);
 
   // Set up Nodemailer transporter
   const transporter = nodemailer.createTransport({
@@ -303,6 +305,54 @@ router.post('/grievance-mail', multer().single('image'),(req, res, next) => {
     to: 'imtdirector@gmail.com',
     subject:'Grievance',
     html: `<h1>Name : ${name}</h1><br><p>Category : ${category}</p><br><p>Grievance : ${grievance}</p><br>Email:${recipientEmail}<br>Phone:${phone}`,
+  };
+
+  // Send email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.send(`
+        <script>
+          alert('Something went wrong!');
+          window.history.back();
+        </script>`
+      );
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.send(`
+        <script>
+          alert('Successfully submitted!');
+          window.history.back();
+        </script>`
+      );
+    }
+  });
+});
+
+router.post('/admission-enquiry-mail', multer().single('image'),(req, res, next) => {
+  const recipientEmail = req.body.recipientEmail;
+  const name = req.body.name; // Updated key name
+  const phone = req.body.phone; // Updated key name
+  const wp_phone = req.body.wp_phone;
+  const graduated = req.body.graduated;
+  const kmat_cmat_cat = req.body.kmat_cmat_cat;
+  const kmat_cmat_cat_score = req.body.kmat_cmat_cat_score;
+
+
+  // Set up Nodemailer transporter
+  const transporter = nodemailer.createTransport({
+    service: 'gmail', // e.g., Gmail, Outlook, etc.
+    auth: {
+      user: 'ajithd78564@gmail.com',
+      pass: 'nheredjgynxgiblk'
+    }
+  });
+
+  const mailOptions = {
+    from: recipientEmail,
+    to: 'imtdirector@gmail.comm',
+    subject:'Admission Enquiry',
+    html: `<h2>Name : ${name}</h2><br><p>Graduated : ${graduated}</p><br><p>Exam : ${kmat_cmat_cat}</p><br><p>Exam Score : ${kmat_cmat_cat_score}</p><br><p>Email : ${recipientEmail}<br>Phone : ${phone}<br>WhatsApp Number : ${wp_phone}</p>`,
   };
 
   // Send email

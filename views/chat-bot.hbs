@@ -20,17 +20,17 @@
 	                        <div id="chat" class="conv-form-wrapper">
 	                            <form action="" method="GET" class="hidden">
 	                                <select data-conv-question="Hello! " name="first-question">
-	                                    <option value="yes">Know About IMT</option>
-	                                    <option value="sure">Give me the details of Admission</option>
+	                                    <option value="imt">Know About IMT</option>
+	                                    <option value="admission">Give me the details of Admission</option>
 	                                </select>
                                     <div data-conv-fork="first-question">
-	                                    <div data-conv-case="yes">
+	                                    <div data-conv-case="imt">
 	                                        <input type="text" name="name" data-conv-question="Alright! First, tell me your full name, please.|Okay! Please, tell me your name first.">
                                             <input type="text" data-conv-question="Hi, {name}:0! It's a pleasure to meet you." data-no-answer="true">
                                             <input type="text" data-conv-question="This is the replay to the IMT Details" data-no-answer="true">
                                             <input type="text" data-conv-question="This plugin supports multi-select too. Let's see an example." data-no-answer="true">
 	                                    </div>
-	                                    <div data-conv-case="no">
+	                                    <div data-conv-case="admission">
 		                                   <input type="text" name="name" data-conv-question="Alright! First, tell me your full name, please.|Okay! Please, tell me your name first.">
                                             <input type="text" data-conv-question="Hi, {name}:0! It's a pleasure to meet you." data-no-answer="true">
                                             <input type="text" data-conv-question="This is the replay to the admission question" data-no-answer="true">
