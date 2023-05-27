@@ -139,6 +139,8 @@ doc.fontSize(16)
    .moveDown()
    .text('Phone Number               : ' + phone_no)
    .moveDown()
+   .text('Email                      : ' + recipientEmail)
+   .moveDown()
    .text('Graduation                 : ' + graduation)
    .moveDown()
    .text('Educational Qualification  : ' + educational_qualification)
@@ -190,8 +192,8 @@ doc.fontSize(16)
 
     // Define email options
     const mailOptions = {
-      from: 'ajithd78564@gmail.com',
-      to: [recipientEmail,'ajithditto@gmail.com'],
+      from: recipientEmail,
+      to: [recipientEmail,'imtdirector@gmail.com'],
       subject: 'IMT Punnapra Application',
       attachments: [
         {
