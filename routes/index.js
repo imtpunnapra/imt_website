@@ -350,7 +350,7 @@ router.post('/admission-enquiry-mail', multer().single('image'),(req, res, next)
 
   const mailOptions = {
     from: recipientEmail,
-    to: 'imtdirector@gmail.comm',
+    to: 'imtdirector@gmail.com',
     subject:'Admission Enquiry',
     html: `<h2>Name : ${name}</h2><br><p>Graduated : ${graduated}</p><br><p>Exam : ${kmat_cmat_cat}</p><br><p>Exam Score : ${kmat_cmat_cat_score}</p><br><p>Email : ${recipientEmail}<br>Phone : ${phone}<br>WhatsApp Number : ${wp_phone}</p>`,
   };
