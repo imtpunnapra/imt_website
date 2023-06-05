@@ -45,6 +45,8 @@
     <link rel="stylesheet" href="/stylesheets/responsive.css">
   
     <link rel="stylesheet" href="/stylesheets/chatBot.css">  
+
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
 <body>
@@ -243,6 +245,9 @@
                                     </div>
                                     <p class="form-message"></p>
                                     <div class="col-md-12">
+                                        <div class=" g-recaptcha" data-sitekey="6Lfp62smAAAAANksQ_-jaFkO4YgYdLULQZjKRMb3"></div>
+                                    </div>
+                                    <div class="col-md-12">
                                         <div class="singel-form">
                                             <button type="submit" class="main-btn">Send</button>
                                         </div> <!-- singel form -->
@@ -351,7 +356,10 @@
                             </div>
                             <ul>
                                 <li>
-                                    <div class="icon">
+                           <button class="g-recaptcha" 
+    data-sitekey="reCAPTCHA_Site_Key" 
+    data-callback='onSubmit' 
+    data-action='submit'>Submit</button>         <div class="icon">
                                         <i class="fa fa-home"></i>
                                     </div>
                                     <div class="cont">
@@ -411,7 +419,11 @@
    
     
     
-    
+    <script>
+        function onSubmit(token) {
+            document.getElementById("contactForm").submit();
+        }
+    </script>
     
     
     

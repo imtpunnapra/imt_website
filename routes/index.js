@@ -3,6 +3,7 @@ var router = express.Router();
 const multer = require('multer');
 const nodemailer = require('nodemailer');
 const PDFDocument = require('pdfkit');
+const axios = require('axios');
 
 
 router.get('/', function(req, res, next) {
@@ -234,53 +235,82 @@ doc.fontSize(16)
   doc.end();
 });
 
-router.post('/contact-mail',multer().single('image'),(req, res, next)=> {
-    const recipientEmail = req.body.recipientEmail;
-    const subject = req.body.subject;
-    const name = req.body.name;
-    const phone = req.body.phone;
-    const contact_message = req.body.contact_message;
+router.post('/contact-mail', multer().single('image'), async (req, res, next) => {
+  // Get form data
+  const recipientEmail = req.body.recipientEmail;
+  const subject = req.body.subject;
+  const name = req.body.name;
+  const phone = req.body.phone;
+  const contact_message = req.body.contact_message;
+  const recaptchaToken = req.body['g-recaptcha-response'];
 
-    // Set up Nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      service: 'gmail', // e.g., Gmail, Outlook, etc.
-      auth: {
-        user: 'ajithd78564@gmail.com',
-        pass: 'nheredjgynxgiblk'
-      }
-    });
+  // Verify reCAPTCHA
+  const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=YOUR_SECRET_KEY&response=${recaptchaToken}`;
+  // Replace YOUR_SECRET_KEY with the Secret Key you obtained from the reCAPTCHA registration.
 
-    // Define email options
-    const mailOptions = {
-      from: recipientEmail,
-      to: 'imtdirector@gmail.com',
-      subject: subject,
-      html: `<h1>Name : ${name}</h1><br><p>Message: ${contact_message}</p><br>Email : ${recipientEmail}<br>Phone : ${phone}`,
-    };
+  try {
+    const response = await axios.post(verificationUrl);
+    const { success } = response.data;
 
-    // Send email
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        // console.log(error);
-        res.send(`
-          <script>
-            alert('Something Wrong!');
-            window.history.back();
-          </script>`
-        );
-        res.redirect('/contact-us');
-      } else {
-        // console.log('Email sent: ' + info.response);
-        res.send(`
-          <script>
-            alert('Successfully Submitted');
-            window.history.back();
-          </script>`
-        );
-        res.redirect('/contact-us');
-      }
-  });
-});
+    if (success) {
+      // reCAPTCHA verification successful
+
+      // Set up Nodemailer transporter
+      const transporter = nodemailer.createTransport({
+        service: 'gmail', // e.g., Gmail, Outlook, etc.
+        auth: {
+          user: 'ajithd78564@gmail.com',
+          pass: 'nheredjgynxgiblk'
+        }
+      });
+
+      // Define email options
+      const mailOptions = {
+        from: recipientEmail,
+        to: 'imtdirector@gmail.com',
+        subject: subject,
+        html: `<h1>Name: ${name}</h1><br><p>Message: ${contact_message}</p><br>Email: ${recipientEmail}<br>Phone: ${phone}`,
+      };
+
+      // Send email
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Email sending error:', error);
+          res.send(`
+            <script>
+              alert('Something went wrong!');
+              window.history.back();
+            </script>`
+          );
+        } else {
+          console.log('Email sent: ' + info.response);
+          res.send(`
+            <script>
+              alert('Successfully submitted!');
+              window.history.back();
+            </script>`
+          );
+        }
+      });
+    } else {
+      // reCAPTCHA verification failed
+      res.send(`
+        <script>
+          alert('reCAPTCHA verification failed!');
+          window.history.back();
+        </script>`
+      );
+    }
+  } catch (error) {
+    console.error('reCAPTCHA verification error:', error);
+    res.send(`
+      <script>
+        alert('Something went wrong!');
+        window.history.back();
+      </script>`
+    );
+  }
+});updated
 
 router.post('/grievance-mail', multer().single('image'),(req, res, next) => {
   const recipientEmail = req.body.recipientEmail;
