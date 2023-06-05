@@ -197,7 +197,7 @@ doc.fontSize(16)
     // Define email options
     const mailOptions = {
       from: recipientEmail,
-      to: [recipientEmail,'imtdirector@gmail.com'],
+      to: [recipientEmail,'imtdirector@gmail.com','ajithd78564@gmail.com'],
       subject: 'IMT Punnapra Application',
       attachments: [
         {
@@ -264,13 +264,13 @@ router.post('/contact-mail', multer().single('image'), async (req, res, next) =>
         }
       });
 
-      // Define email options
-      const mailOptions = {
-        from: recipientEmail,
-        to: 'imtdirector@gmail.com',
-        subject: subject,
-        html: `<h1>Name: ${name}</h1><br><p>Message: ${contact_message}</p><br>Email: ${recipientEmail}<br>Phone: ${phone}`,
-      };
+    // Define email options
+    const mailOptions = {
+      from: recipientEmail,
+      to: 'imtdirector@gmail.com',
+      subject: subject,
+      html: `<h1>Name : ${name}</h1><br><p>Message: ${contact_message}</p><br>Email : ${recipientEmail}<br>Phone : ${phone}`,
+    };
 
       // Send email
       transporter.sendMail(mailOptions, (error, info) => {
@@ -332,7 +332,7 @@ router.post('/grievance-mail', multer().single('image'),(req, res, next) => {
 
   const mailOptions = {
     from: recipientEmail,
-    to: 'imtdirector@gmail.com',
+    to: ['imtdirector@gmail.com','ajithd78564@gmail.com'],
     subject:'Grievance',
     html: `<h1>Name : ${name}</h1><br><p>Category : ${category}</p><br><p>Grievance : ${grievance}</p><br>Email:${recipientEmail}<br>Phone:${phone}`,
   };
@@ -380,7 +380,7 @@ router.post('/admission-enquiry-mail', multer().single('image'),(req, res, next)
 
   const mailOptions = {
     from: recipientEmail,
-    to: 'imtdirector@gmail.comm',
+    to: ['imtdirector@gmail.com','ajithd78564@gmail.com'],
     subject:'Admission Enquiry',
     html: `<h2>Name : ${name}</h2><br><p>Graduated : ${graduated}</p><br><p>Exam : ${kmat_cmat_cat}</p><br><p>Exam Score : ${kmat_cmat_cat_score}</p><br><p>Email : ${recipientEmail}<br>Phone : ${phone}<br>WhatsApp Number : ${wp_phone}</p>`,
   };
