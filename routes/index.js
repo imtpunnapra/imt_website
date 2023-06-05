@@ -245,7 +245,7 @@ router.post('/contact-mail', multer().single('image'), async (req, res, next) =>
   const recaptchaToken = req.body['g-recaptcha-response'];
 
   // Verify reCAPTCHA
-  const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=YOUR_SECRET_KEY&response=${recaptchaToken}`;
+  const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=6LekB2wmAAAAAA2d5JmFxBXDcFBUWOmjrruJpcPh&response=${recaptchaToken}`;
   // Replace YOUR_SECRET_KEY with the Secret Key you obtained from the reCAPTCHA registration.
 
   try {
