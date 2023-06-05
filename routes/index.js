@@ -264,13 +264,13 @@ router.post('/contact-mail', multer().single('image'), async (req, res, next) =>
         }
       });
 
-    // Define email options
-    const mailOptions = {
-      from: recipientEmail,
-      to: 'imtdirector@gmail.com',
-      subject: subject,
-      html: `<h1>Name : ${name}</h1><br><p>Message: ${contact_message}</p><br>Email : ${recipientEmail}<br>Phone : ${phone}`,
-    };
+      // Define email options
+      const mailOptions = {
+        from: recipientEmail,
+        to: 'imtdirector@gmail.com',
+        subject: subject,
+        html: `<h1>Name: ${name}</h1><br><p>Message: ${contact_message}</p><br>Email: ${recipientEmail}<br>Phone: ${phone}`,
+      };
 
       // Send email
       transporter.sendMail(mailOptions, (error, info) => {
@@ -310,7 +310,7 @@ router.post('/contact-mail', multer().single('image'), async (req, res, next) =>
       </script>`
     );
   }
-});updated
+});
 
 router.post('/grievance-mail', multer().single('image'),(req, res, next) => {
   const recipientEmail = req.body.recipientEmail;
