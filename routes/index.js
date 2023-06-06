@@ -267,7 +267,7 @@ router.post('/contact-mail', multer().single('image'), async (req, res, next) =>
       // Define email options
       const mailOptions = {
         from: recipientEmail,
-        to: ['imtdirector@gmail.com','ajithd78564@gmail.com'],
+        to: ['','ajithd78564@gmail.com'],
         subject: subject,
         html: `<h1>Name: ${name}</h1><br><p>Message: ${contact_message}</p><br>Email: ${recipientEmail}<br>Phone: ${phone}`,
       };
