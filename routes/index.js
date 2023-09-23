@@ -189,8 +189,8 @@ doc.fontSize(16)
     const transporter = nodemailer.createTransport({
       service: 'gmail', // e.g., Gmail, Outlook, etc.
       auth: {
-        user: 'ajithd78564@gmail.com',
-        pass: 'nheredjgynxgiblk'
+        user: 'punnapraimt@gmail.com',
+        pass: 'cuwxxtbptrlaoorb'
       }
     });
 
@@ -259,8 +259,8 @@ router.post('/contact-mail', multer().single('image'), async (req, res, next) =>
       const transporter = nodemailer.createTransport({
         service: 'gmail', // e.g., Gmail, Outlook, etc.
         auth: {
-          user: 'ajithd78564@gmail.com',
-          pass: 'nheredjgynxgiblk'
+          user: 'punnapraimt@gmail.com',
+          pass: 'cuwxxtbptrlaoorb'
         }
       });
 
@@ -337,8 +337,8 @@ router.post('/grievance-mail', multer().single('image'), async (req, res, next) 
       const transporter = nodemailer.createTransport({
         service: 'gmail', // e.g., Gmail, Outlook, etc.
         auth: {
-          user: 'ajithd78564@gmail.com',
-          pass: 'nheredjgynxgiblk'
+          user: 'punnapraimt@gmail.com',
+          pass: 'cuwxxtbptrlaoorb'
         }
       });
 
@@ -415,8 +415,8 @@ router.post('/admission-enquiry-mail', multer().single('image'), async (req, res
       const transporter = nodemailer.createTransport({
         service: 'gmail', // e.g., Gmail, Outlook, etc.
         auth: {
-          user: 'ajithd78564@gmail.com',
-          pass: 'nheredjgynxgiblk'
+          user: 'punnapraimt@gmail.com',
+          pass: 'cuwxxtbptrlaoorb'
         }
       });
 
