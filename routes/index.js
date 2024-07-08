@@ -176,7 +176,7 @@ doc.fontSize(16)
    .text('Consented : I here by declared that all the information submitted by me in the application form is correct, true and valid')
   doc.moveDown();
   doc.image(imageSrc2, { width: 100, height:50 });
-
+console.log("here..");
   // Generate the PDF buffer
   const pdfBuffer = [];
   doc.on('data', (chunk) => {
